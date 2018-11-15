@@ -43,11 +43,9 @@ router.post('/contact', upload.single('photo'), [
   
   const data = matchedData(req)
   console.log('Sanitized: ', data)
-  // Homework: send sanitized data in an email or persist in a db
   
   if (req.file) {
     console.log('Uploaded: ', req.file)
-    // Homework: Upload file to S3
   }
 
   req.flash('success', 'Thanks for the message! I‘ll be in touch :)')
@@ -59,13 +57,25 @@ router.post('/contact', upload.single('photo'), [
     port: 465,
     secure: true,
     auth: {
+      // ###############################################
+      // Alter user and pass values to your requirements
+      // ###############################################
       user: 'user@email.com', // get this into an environment variable!
       pass: 'password' // get this into an environment variable!
+      // ###############################################
+      // Alter user and pass values to your requirements
+      // ###############################################
     }
   });
   mailOpts = {
     from: data.message + ' &lt;' + data.email + '&gt;',
+    // ###########################################
+    // Alter to value to your desired requirements
+    // ###########################################
     to: 'user@email.com',
+    // ###########################################
+    // Alter to value to your desired requirements
+    // ###########################################
     subject: 'New message from contact form at brandtprecision.com',
     text: `${req.body.email} - ${data.message}`,
     attachments: [ 
